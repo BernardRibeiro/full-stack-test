@@ -1,0 +1,30 @@
+{
+  "name": "full-stack-test",
+  "version": "1.0.0",
+  "description": "myTapp full stack test",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/api/index.js",
+    "dev": "nodemon ./src/api/index.js --debug",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BernardRibeiro/full-stack-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BernardRibeiro/full-stack-test/issues"
+  },
+  "homepage": "https://github.com/BernardRibeiro/full-stack-test#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
