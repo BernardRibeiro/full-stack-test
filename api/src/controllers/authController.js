@@ -18,6 +18,7 @@ const generateToken = (params = {}) => {
 };
 
 const authenticate = async (req, res) => {
+    console.log('entrou')
     const { email, password } = req.body;
 
     const user = await User.findOne({ where: { email }});
