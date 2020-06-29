@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 
 import { AuthProvider } from '../context/AuthContext';
-import NavMenu from '../navmenu/NavMenu';
+import NavMenu from '../navMenu/NavMenu';
 import Routes from '../routes/Routes';
 
 import './style.css';

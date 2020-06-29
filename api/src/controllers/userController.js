@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+const authMiddleware = require('../middlewares/auth');
 const userService = require('../services/userService');
 
 const get = async (req, res) => {
@@ -59,10 +60,13 @@ const remove = async (req, res) => {
     }
 }
 
-router.get('/:id', get);
-router.get('/', getAll);
 router.post('/create', create);
 router.put('/:id/update', update);
+
+router.use(authMiddleware);
+
+router.get('/:id', get);
+router.get('/', getAll);
 router.delete('/:id', remove);
 
 module.exports = app => app.use('/user', router);
