@@ -1,42 +1,71 @@
-import React, { useState } from 'react';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import useAuth from '../context/hooks/useAuth';
+import React, { useState, useContext } from 'react';
+import { Container, Row, Form, Button } from 'react-bootstrap';
+import { Context } from '../context/AuthContext';
+import api from '../common/api';
 
-export default function Login() {
-    const { handleLogin } = useAuth();
+import './login.css';
+
+export default function Login({ history }) {
+    const { handleLogin } = useContext(Context);
 
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
+    const [ errorMessage, setErrorMessage ] = useState('');   
 
     const handleSubmit = async event => {
         event.preventDefault();
+        setErrorMessage('');
 
-        var data = {
-            email,
-            password
-        };
+        api
+            .post('/authenticate', { email, password })
+            .then(response => {
+                const { error } = response.data;
+                
+                if (error)
+                    setErrorMessage(error);
+                else {
+                    const { token } = response.data;
+                    
+                    handleLogin(token);
 
-        await handleLogin(data);
+                    history.push('/punk');
+                }
+            })
+            
+            .catch( (response) => {
+                setErrorMessage("Erro ao realizar operação" + response);
+            });
     };
 
     return (
-        <>
-            <Container>
+        <Container>
+            <Row className="justify-content-md-center">
                 <Form onSubmit={handleSubmit}>
-                    <input
-                        type="email"
-                        placeholder="Endereço de e-mail"
-                        onChange={event => setEmail(event.target.value)}
-                    />
-                    <input
-                        type="password"
-                        placeholder="Senha"
-                        onChange={event => setPassword(event.target.value)}                        
-                    />
-                    <button type="submit">Entrar</button>
+                    <Form.Text className="error-message">
+                        { errorMessage }
+                    </Form.Text>
+                    
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control 
+                            type="email" placeholder="Entre email" 
+                            onChange={event => setEmail(event.target.value)}
+                        />                        
+                    </Form.Group>
+
+                    <Form.Group controlId="formBasicPassword">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control 
+                            type="password" 
+                            onChange={event => setPassword(event.target.value)} 
+                            placeholder="Password" />
+                    </Form.Group>
+                
+                    <Button variant="primary" type="submit">
+                        Entrar
+                    </Button>
                 </Form>
-            </Container>
-        </>
+            </Row>
+        </Container>
     );
 }

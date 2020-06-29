@@ -1,16 +1,21 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
 
 import { AuthProvider } from '../context/AuthContext';
-import NavMenu from '../navMenu/NavMenu'
-import Routes from '../routes/Routes'
+import NavMenu from '../navmenu/NavMenu';
+import Routes from '../routes/Routes';
+
+import './style.css';
 
 function App() {
     return (
         <AuthProvider>
             <BrowserRouter>
                 <NavMenu></NavMenu>
-                <Routes></Routes>
+                <Container className="main">
+                    <Routes></Routes>
+                </Container>
             </BrowserRouter>
         </AuthProvider>
     );

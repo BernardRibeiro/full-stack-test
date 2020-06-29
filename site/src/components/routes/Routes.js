@@ -1,10 +1,11 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { Context } from '../context/AuthContext';
 
-import Main from '../main/Main';
+import Home from '../home/Home';
 import Login from '../login/Login';
+import Logout from '../login/Logout';
 import Punk from '../punk/Punk';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {   
@@ -27,8 +28,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 function Routes() {
     return (
         <Switch>
-            <Route path="/" exact={true} component={Main} />
+            <Route path="/" exact={true} component={Home} />
             <Route path="/login" exact={true} component={Login} />          
+            <Route path="/logout" exact={true} component={Logout} />          
             <PrivateRoute path="/punk" component={Punk} />
         </Switch>
     )
